@@ -48,18 +48,18 @@ class MongoDB(object):
 
         # operations
         for k, v in server_status['opcounters'].items():
-            self.submit('total_operations', k, v)
+            self.submit('operations', k, v)
 
         # memory
         for t in ['resident', 'virtual', 'mapped']:
             self.submit('memory', t, server_status['mem'][t])
 
         # connections
-        self.submit('connections', 'current', server_status['connections']['current'])
+        self.submit('current_connections', 'current', server_status['connections']['current'])
 	if 'available' in server_status['connections']:
-            self.submit('connections', 'available', server_status['connections']['available'])
+            self.submit('current_connections', 'available', server_status['connections']['available'])
 	if 'totalCreated' in server_status['connections']:
-            self.submit('connections', 'totalCreated', server_status['connections']['totalCreated'])
+            self.submit('current_connections', 'totalCreated', server_status['connections']['totalCreated'])
 
 	# network
 	if 'network' in server_status:
